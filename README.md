@@ -9,8 +9,8 @@ Discord bot built from [discord.js](https://discord.js.org/#/).
 | rank | check your rank |
 | rank @user | check another users rank |
 | help COMMAND | get more information on a command. Ex. :?help rlevel |
-| :?rlevel | add roles to users as they level up |
-| :?rroles | check what roles are available when users level up |
+| rlevel | add roles to users as they level up |
+| rroles | check what roles are available when users level up |
 
 ### Other Features Include
 
