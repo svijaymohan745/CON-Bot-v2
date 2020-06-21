@@ -1,7 +1,6 @@
 module.exports.helpEmbed = function(client, message, Discord) {
   var embed = new Discord.RichEmbed()
-    .setTitle("CON Bot")
-    .setDescription("List of extended commands for CON Bot.")
+    .setDescription("List of extended commands")
     .setColor(0x00AE86)
     .setThumbnail(client.user.displayAvatarURL)
     .addField("Commands", `**_leaderboard**
@@ -9,9 +8,9 @@ module.exports.helpEmbed = function(client, message, Discord) {
 **_rank** \`\`@User\`\`
 **_help**
 **_help** \`\`COMMAND\`\`
-**_rlevel** \`\`add/remove rolename\`\`
-**:?blacklist** \`\`add/remove rolename\`\`
-\`\`` ,true)
+**_rlevel** \`\`add/remove rolename (Admin Command)\`\`
+**:?blacklist** \`\`add/remove rolename (Admin Command)\`\`
+` ,true)
     .setFooter("© CON Bot", `${client.user.displayAvatarURL}`)
     message.channel.send(embed)
 }

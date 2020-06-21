@@ -1,5 +1,5 @@
 exports.run = (bot, message, args, sql) =>{
-  let uRole = message.guild.roles.find("name", "CON Bot");
+  let uRole = message.guild.roles.find("name", "The Retard Admins");
   if(!uRole){
     message.reply("Please read ``:?help rlevel`` for more information on how to use it.")
   }else{

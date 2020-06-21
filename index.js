@@ -7,11 +7,13 @@ const levelerCore = require('./functions/levelSystem');
 const talkedRecently = new Set();
 const botconfig = require("./botconfig.json");
 const bot = new Discord.Client();
-const token = "wOTI4MTQyMTA5MTc5OTU0.Xu0kEg.AomjcFAy3Q25PNjK6F3v1GJxxx";
+const token = "NzIwOTI4MTQyMTA5MTc5OTU0.Xu0xVQ.L1qGDX1_kCj6O4lB4onRl_5RlUU";
 bot.commands = new Discord.Collection();
+const fetch = require('node-fetch');
 let purple = botconfig.purple;
 const { MessageEmbed  } = require("discord.js");
 const randomPuppy = require("random-puppy");
+const prefix  = config.prefix;
 
 
 
@@ -149,31 +151,29 @@ bot.login(token);
 
 
 
+ 
+bot.on("message", async message => {
+  if(message.author.bot) return;
+  if(message.content.indexOf(prefix) !== 0) return;
 
-
-module.exports = {
-  name: "meme",
-  category: "Epic Memes",
-  description: "Sends the best memes on the planet",
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  if(command === "meme") {
+    let msg = await message.channel.send("Fetching a meme, please wait a second!");
+    fetch('https://meme-api.herokuapp.com/gimme')
+        .then(res => res.json())
+        .then(json => {
+            let embed = new Discord.RichEmbed()
+                .setTitle(json.title)
+                .setImage(json.url)
+                .setFooter(`Link: ${json.postLink} | Subreddit: ${json.subreddit}`)
+            msg.edit(embed)
+        });
 }
 
 
-bot.on("message", async message => {
-if (message.content == "_meme"){
-  const subReddits = ["dankmeme", "dankmemes","memes", "meme", "jokes", "joke", "me_irl"];
-  const random = subReddits[Math.floor(Math.random() * subReddits.length)];
+});
 
-  const img = await randomPuppy(`${random}`);
-
-  const embed = new MessageEmbed()
-  .setColor("RANDOM")
-  .setImage(img)
-  .setTitle(`From /r/${random}`)
-  .setURL(`https://www.reddit.com/r/${random}`);
-
-  message.channel.send(embed)
-
-}})
 
 
 bot.on('ready', () => {
@@ -234,7 +234,7 @@ bot.on('guildMemberAdd', member => {
 },
 bot.on('guildMemberAdd', member =>{
 
-    const channel = member.guild.channels.cache.find(channel => channel.name === "👥people-incoming");
+    const channel = member.guild.channels.find(channel => channel.name === "👥people-incoming");
     if(!channel) return;
 
 
